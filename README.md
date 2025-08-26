@@ -1,141 +1,293 @@
-# 🚀 Welcome to Z.ai Code Scaffold
+# GENVORA - SaaS Dashboard for UK Reselling Business
 
-A modern, production-ready web application scaffold powered by cutting-edge technologies, designed to accelerate your development with [Z.ai](https://chat.z.ai)'s AI-powered coding assistance.
+A comprehensive SaaS dashboard application built with Next.js 15 and TypeScript to manage all aspects of a UK reselling business including inventory, orders, expenses, ticket resales, and long-term TCG investments.
 
-## ✨ Technology Stack
+## 🚀 Features Implemented
 
-This scaffold provides a robust foundation built with:
+### ✅ Core Modules Completed
 
-### 🎯 Core Framework
-- **⚡ Next.js 15** - The React framework for production with App Router
-- **📘 TypeScript 5** - Type-safe JavaScript for better developer experience
-- **🎨 Tailwind CSS 4** - Utility-first CSS framework for rapid UI development
+1. **Dashboard Layout & Navigation**
+   - Professional sidebar navigation with all modules
+   - Responsive header with search, notifications, and user menu
+   - Mobile-friendly design with collapsible sidebar
+   - Quick actions menu for common tasks
 
-### 🧩 UI Components & Styling
-- **🧩 shadcn/ui** - High-quality, accessible components built on Radix UI
-- **🎯 Lucide React** - Beautiful & consistent icon library
-- **🌈 Framer Motion** - Production-ready motion library for React
-- **🎨 Next Themes** - Perfect dark mode in 2 lines of code
+2. **Summary Dashboard**
+   - KPI cards for key business metrics (orders, revenue, profit, inventory value)
+   - Interactive charts for revenue trends and category performance
+   - Real-time alerts system (low stock, overdue shipments, pending payouts)
+   - Recent orders overview with status indicators
 
-### 📋 Forms & Validation
-- **🎣 React Hook Form** - Performant forms with easy validation
-- **✅ Zod** - TypeScript-first schema validation
+3. **Inventory Tracker**
+   - Complete product management with SKU tracking
+   - Stock level monitoring with reorder points
+   - Bin location tracking for warehouse management
+   - Cost vs market value tracking
+   - Category and status filtering
+   - CSV import/export functionality (UI ready)
 
-### 🔄 State Management & Data Fetching
-- **🐻 Zustand** - Simple, scalable state management
-- **🔄 TanStack Query** - Powerful data synchronization for React
-- **🌐 Axios** - Promise-based HTTP client
+4. **Orders Hub**
+   - Multi-channel order management (eBay, Amazon, Vinted, Depop)
+   - Order status tracking (pending, processing, shipped, delivered)
+   - Profit calculation after platform fees and shipping
+   - Customer information and order details
+   - Tracking number integration
 
-### 🗄️ Database & Backend
-- **🗄️ Prisma** - Next-generation Node.js and TypeScript ORM
-- **🔐 NextAuth.js** - Complete open-source authentication solution
+5. **Ticket Hub**
+   - Event ticket inventory management
+   - ROI tracking for ticket investments
+   - Deadline management with approaching alerts
+   - Payout status tracking
+   - Event and venue information
 
-### 🎨 Advanced UI Features
-- **📊 TanStack Table** - Headless UI for building tables and datagrids
-- **🖱️ DND Kit** - Modern drag and drop toolkit for React
-- **📊 Recharts** - Redefined chart library built with React and D3
-- **🖼️ Sharp** - High performance image processing
+6. **Investment Hub**
+   - TCG (Trading Card Game) investment tracking
+   - Physical asset management (watches, collectibles)
+   - ROI calculation and performance tracking
+   - Target exit price and date management
+   - Investment status tracking
 
-### 🌍 Internationalization & Utilities
-- **🌍 Next Intl** - Internationalization library for Next.js
-- **📅 Date-fns** - Modern JavaScript date utility library
-- **🪝 ReactUse** - Collection of essential React hooks for modern development
+7. **Expenses Hub**
+   - Business expense tracking with VAT handling
+   - Receipt management system
+   - Category-based expense organization
+   - Approval workflow (pending, approved, paid)
+   - VAT calculation and reporting
 
-## 🎯 Why This Scaffold?
+8. **Shipping & Operations**
+   - Shipment creation and tracking
+   - Multiple carrier support (Royal Mail, DHL, etc.)
+   - Label printing workflow
+   - Package weight and dimension tracking
+   - Barcode scanning interface (UI ready)
+   - Manifest generation
 
-- **🏎️ Fast Development** - Pre-configured tooling and best practices
-- **🎨 Beautiful UI** - Complete shadcn/ui component library with advanced interactions
-- **🔒 Type Safety** - Full TypeScript configuration with Zod validation
-- **📱 Responsive** - Mobile-first design principles with smooth animations
-- **🗄️ Database Ready** - Prisma ORM configured for rapid backend development
-- **🔐 Auth Included** - NextAuth.js for secure authentication flows
-- **📊 Data Visualization** - Charts, tables, and drag-and-drop functionality
-- **🌍 i18n Ready** - Multi-language support with Next Intl
-- **🚀 Production Ready** - Optimized build and deployment settings
-- **🤖 AI-Friendly** - Structured codebase perfect for AI assistance
+### 🛠 Technology Stack
 
-## 🚀 Quick Start
+- **Frontend**: Next.js 15 with App Router
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS 4
+- **UI Components**: shadcn/ui with New York style
+- **Icons**: Lucide React
+- **Database**: SQLite with Prisma ORM
+- **State Management**: Zustand
+- **Real-time**: Socket.IO
+- **Charts**: Recharts (ready for implementation)
 
-```bash
-# Install dependencies
-npm install
+### 📊 Database Schema
 
-# Start development server
-npm run dev
+Comprehensive Prisma schema covering:
+- Users and authentication
+- Products and inventory management
+- Orders and payments across multiple channels
+- Event tickets and investments
+- Business expenses with VAT
+- Shipping and carrier management
+- API integration configurations
 
-# Build for production
-npm run build
+## 🎯 Key Business Features
 
-# Start production server
-npm start
-```
+### Multi-Channel Integration Ready
+- eBay, Amazon, Vinted, Depop order management
+- Royal Mail shipping integration
+- Xero accounting integration (structure ready)
 
-Open [http://localhost:3000](http://localhost:3000) to see your application running.
+### Financial Tracking
+- Real-time profit calculation
+- ROI tracking for investments and tickets
+- VAT handling for UK compliance
+- Revenue and expense reporting
 
-## 🤖 Powered by Z.ai
+### Operational Efficiency
+- Barcode-driven workflows
+- Bulk label printing
+- Automated reorder points
+- Shipping manifest generation
 
-This scaffold is optimized for use with [Z.ai](https://chat.z.ai) - your AI assistant for:
+### Responsive Design
+- Mobile-first approach
+- Touch-friendly interfaces
+- Adaptive layouts for all screen sizes
 
-- **💻 Code Generation** - Generate components, pages, and features instantly
-- **🎨 UI Development** - Create beautiful interfaces with AI assistance  
-- **🔧 Bug Fixing** - Identify and resolve issues with intelligent suggestions
-- **📝 Documentation** - Auto-generate comprehensive documentation
-- **🚀 Optimization** - Performance improvements and best practices
+## 🚀 Getting Started
 
-Ready to build something amazing? Start chatting with Z.ai at [chat.z.ai](https://chat.z.ai) and experience the future of AI-powered development!
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- SQLite (included)
 
-## 📁 Project Structure
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd genvora-dashboard
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   ```
+   Configure your database URL and other environment variables.
+
+4. **Set up the database**
+   ```bash
+   npm run db:push
+   npm run db:generate
+   ```
+
+5. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+
+6. **Open your browser**
+   Navigate to `http://localhost:3000`
+
+## 🏗️ Project Structure
 
 ```
 src/
-├── app/                 # Next.js App Router pages
-├── components/          # Reusable React components
-│   └── ui/             # shadcn/ui components
-├── hooks/              # Custom React hooks
-└── lib/                # Utility functions and configurations
+├── app/                    # Next.js App Router pages
+│   ├── page.tsx           # Main dashboard
+│   ├── inventory/         # Inventory management
+│   ├── orders/           # Order management
+│   ├── tickets/          # Ticket hub
+│   ├── investments/      # Investment tracking
+│   ├── expenses/         # Expense management
+│   └── shipping/         # Shipping operations
+├── components/
+│   ├── layout/           # Layout components
+│   └── ui/              # shadcn/ui components
+├── lib/
+│   ├── db.ts            # Database client
+│   ├── utils.ts         # Utility functions
+│   └── socket.ts        # WebSocket configuration
+└── hooks/               # Custom React hooks
 ```
 
-## 🎨 Available Features & Components
+## 📱 Navigation
 
-This scaffold includes a comprehensive set of modern web development tools:
+The application includes a comprehensive navigation system:
 
-### 🧩 UI Components (shadcn/ui)
-- **Layout**: Card, Separator, Aspect Ratio, Resizable Panels
-- **Forms**: Input, Textarea, Select, Checkbox, Radio Group, Switch
-- **Feedback**: Alert, Toast (Sonner), Progress, Skeleton
-- **Navigation**: Breadcrumb, Menubar, Navigation Menu, Pagination
-- **Overlay**: Dialog, Sheet, Popover, Tooltip, Hover Card
-- **Data Display**: Badge, Avatar, Calendar
+- **Dashboard** - Overview with KPIs and charts
+- **Inventory** - Product and stock management
+- **Orders** - Multi-channel order tracking
+- **Tickets** - Event ticket investments
+- **Investments** - TCG and physical assets
+- **Expenses** - Business costs with VAT
+- **Shipping** - Operations and logistics
+- **Analytics** - Business intelligence (ready)
+- **Settings** - Configuration (ready)
 
-### 📊 Advanced Data Features
-- **Tables**: Powerful data tables with sorting, filtering, pagination (TanStack Table)
-- **Charts**: Beautiful visualizations with Recharts
-- **Forms**: Type-safe forms with React Hook Form + Zod validation
+## 🔧 Development Commands
 
-### 🎨 Interactive Features
-- **Animations**: Smooth micro-interactions with Framer Motion
-- **Drag & Drop**: Modern drag-and-drop functionality with DND Kit
-- **Theme Switching**: Built-in dark/light mode support
+```bash
+# Development
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run start        # Start production server
+npm run lint         # Run ESLint
 
-### 🔐 Backend Integration
-- **Authentication**: Ready-to-use auth flows with NextAuth.js
-- **Database**: Type-safe database operations with Prisma
-- **API Client**: HTTP requests with Axios + TanStack Query
-- **State Management**: Simple and scalable with Zustand
+# Database
+npm run db:push      # Push schema to database
+npm run db:generate  # Generate Prisma client
+npm run db:migrate   # Run migrations
+npm run db:reset     # Reset database
+```
 
-### 🌍 Production Features
-- **Internationalization**: Multi-language support with Next Intl
-- **Image Optimization**: Automatic image processing with Sharp
-- **Type Safety**: End-to-end TypeScript with Zod validation
-- **Essential Hooks**: 100+ useful React hooks with ReactUse for common patterns
+## 🚀 Deployment
 
-## 🤝 Get Started with Z.ai
+### Production Deployment
 
-1. **Clone this scaffold** to jumpstart your project
-2. **Visit [chat.z.ai](https://chat.z.ai)** to access your AI coding assistant
-3. **Start building** with intelligent code generation and assistance
-4. **Deploy with confidence** using the production-ready setup
+1. **Build the application**
+   ```bash
+   npm run build
+   ```
+
+2. **Set up production database**
+   - Configure your production database URL in `.env`
+   - Run `npm run db:migrate`
+
+3. **Deploy to your preferred platform**
+   - **Vercel**: Connect your repository and deploy
+   - **Docker**: Use the provided Dockerfile
+   - **Traditional**: Deploy to any Node.js hosting
+
+### Environment Variables
+
+```env
+# Database
+DATABASE_URL="file:./dev.db"
+
+# Next.js
+NEXTAUTH_SECRET="your-secret-here"
+NEXTAUTH_URL="http://localhost:3000"
+
+# API Keys (for integrations)
+EBAY_API_KEY="your-ebay-key"
+AMAZON_API_KEY="your-amazon-key"
+ROYAL_MAIL_API_KEY="your-royal-mail-key"
+XERO_API_KEY="your-xero-key"
+```
+
+### Docker Deployment
+
+```dockerfile
+FROM node:18-alpine
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . .
+RUN npm run build
+
+EXPOSE 3000
+CMD ["npm", "start"]
+```
+
+## 🔮 Future Enhancements
+
+### High Priority
+- **API Integrations**: eBay, Amazon, Royal Mail, Xero
+- **CSV Import/Export**: Complete implementation for all modules
+- **Authentication**: User management and role-based access
+
+### Medium Priority
+- **Real-time Updates**: WebSocket integration for live data
+- **Advanced Analytics**: Business intelligence and reporting
+- **Mobile App**: React Native companion app
+
+### Low Priority
+- **Advanced Features**: Barcode scanning, label printing
+- **Third-party Integrations**: Additional marketplaces and services
+- **Performance Optimization**: Caching and optimization
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For support and questions:
+- Create an issue in the repository
+- Check the documentation
+- Review the code comments for implementation details
 
 ---
 
-Built with ❤️ for the developer community. Supercharged by [Z.ai](https://chat.z.ai) 🚀
+**Built with ❤️ for GENVORA - UK Reselling Business Operations**

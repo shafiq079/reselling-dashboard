@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,21 +15,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Z.ai Code Scaffold - AI-Powered Development",
-  description: "Modern Next.js scaffold optimized for AI-powered development with Z.ai. Built with TypeScript, Tailwind CSS, and shadcn/ui.",
-  keywords: ["Z.ai", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "AI development", "React"],
-  authors: [{ name: "Z.ai Team" }],
+  title: "GENVORA - SaaS Dashboard for UK Reselling Business",
+  description: "Comprehensive SaaS dashboard for managing inventory, orders, expenses, ticket resales, and TCG investments. Built with modern React stack.",
+  keywords: ["GENVORA", "SaaS", "Dashboard", "Inventory", "Orders", "eCommerce", "Reselling", "TCG", "Next.js", "TypeScript"],
+  authors: [{ name: "GENVORA Team" }],
   openGraph: {
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
-    url: "https://chat.z.ai",
-    siteName: "Z.ai",
+    title: "GENVORA - Business Operations Dashboard",
+    description: "Comprehensive SaaS dashboard for UK reselling business operations",
+    url: "https://genvora.co.uk",
+    siteName: "GENVORA",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
+    title: "GENVORA - Business Operations Dashboard",
+    description: "Comprehensive SaaS dashboard for UK reselling business operations",
   },
 };
 
@@ -42,8 +43,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
       >
-        {children}
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
