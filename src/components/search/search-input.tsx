@@ -24,7 +24,7 @@ interface SearchInputProps {
 export function SearchInput({ 
   placeholder = "Search orders, products, customers...", 
   onSearch,
-  className = "" 
+  className = ""
 }: SearchInputProps) {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
@@ -157,7 +157,7 @@ export function SearchInput({
               setIsOpen(false)
             }
           }}
-          className="pl-10 pr-10 bg-card border-border"
+          className={`pl-10 pr-10 border ${isOpen ? 'bg-white border-primary' : 'bg-card border-border'}`}
         />
         {query && (
           <Button
@@ -172,7 +172,7 @@ export function SearchInput({
       </div>
 
       {isOpen && showSuggestions && (
-        <Card className="absolute top-full mt-1 w-full z-50 shadow-lg border-border/50 bg-card">
+        <Card className="absolute top-full mt-1 w-full z-50 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 border border-gray-200 dark:border-gray-700 shadow-lg backdrop-blur-sm">
           <CardContent className="p-0">
             {/* Search History */}
             {query.length === 0 && searchHistory.length > 0 && (
@@ -252,27 +252,28 @@ export function SearchInput({
             )}
 
             {/* Quick Actions */}
-            <div className="p-3 border-t bg-muted/20">
-              <div className="text-xs text-muted-foreground mb-2">Quick Actions</div>
-              <div className="grid grid-cols-2 gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleSearch('ORD-')}
-                  className="text-xs justify-start"
-                >
-                  📦 Search Orders
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleSearch('')}
-                  className="text-xs justify-start"
-                >
-                  👤 Search Customers
-                </Button>
+              <div className="p-3 border-t bg-card">
+                <div className="text-xs text-muted-foreground mb-2">Quick Actions</div>
+                <div className="grid grid-cols-2 gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleSearch('ORD-')}
+                    className="text-xs justify-start"
+                  >
+                    📦 Search Orders
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleSearch('')}
+                    className="text-xs justify-start"
+                  >
+                    👤 Search Customers
+                  </Button>
+                </div>
               </div>
-            </div>
+
           </CardContent>
         </Card>
       )}

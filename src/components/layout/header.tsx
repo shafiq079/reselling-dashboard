@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Bell, Search, User, Settings, LogOut, Command } from 'lucide-react'
+import { Bell, Search, User, Settings, LogOut } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import {
@@ -15,14 +15,12 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { SearchInput } from '@/components/search/search-input'
-import { useGlobalSearch } from '@/hooks/use-global-search'
 
 interface HeaderProps {
   onMenuClick: () => void
 }
 
 export function Header({ onMenuClick }: HeaderProps) {
-  const { openSearch, toggleSearch, GlobalSearchComponent } = useGlobalSearch()
   const [searchQuery, setSearchQuery] = useState('')
 
   const notifications = [
@@ -39,128 +37,112 @@ export function Header({ onMenuClick }: HeaderProps) {
   }
 
   return (
-    <>
-      <header className="bg-background border-b px-4 lg:px-6 h-16 flex items-center">
-        {/* Mobile menu button */}
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onMenuClick}
-          className="lg:hidden mr-2"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </Button>
+    <header className="bg-background border-b px-4 lg:px-6 h-16 flex items-center">
+      {/* Mobile menu button */}
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={onMenuClick}
+        className="lg:hidden mr-2"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </Button>
 
-        {/* Search */}
-        <div className="flex-1 max-w-lg">
-          <SearchInput
-            placeholder="Search orders, products, customers..."
-            onSearch={handleSearch}
-          />
-        </div>
+      {/* Search */}
+      <div className="flex-1 max-w-lg">
+        <SearchInput
+          placeholder="Search orders, products, customers..."
+          onSearch={handleSearch}
+        />
+      </div>
 
-        {/* Right side actions */}
-        <div className="flex items-center space-x-4 ml-4">
-          {/* Global Search Shortcut */}
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={toggleSearch}
-            className="text-muted-foreground hover:text-foreground"
-          >
-            <Command className="w-4 h-4 mr-1" />
-            <span className="text-sm">K</span>
-          </Button>
+      {/* Right side actions */}
+      <div className="flex items-center space-x-4 ml-4">
+        {/* Theme Toggle */}
+        <ThemeToggle />
 
-          {/* Theme Toggle */}
-          <ThemeToggle />
-
-          {/* Notifications */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="relative">
-                <Bell className="w-5 h-5" />
-                {unreadCount > 0 && (
-                  <Badge 
-                    variant="destructive" 
-                    className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 text-xs"
-                  >
-                    {unreadCount}
-                  </Badge>
-                )}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80">
-              <DropdownMenuLabel>Notifications</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              {notifications.length === 0 ? (
-                <div className="px-4 py-8 text-center text-muted-foreground">
-                  No notifications
-                </div>
-              ) : (
-                notifications.map((notification) => (
-                  <DropdownMenuItem
-                    key={notification.id}
-                    className="flex-col items-start p-4 cursor-pointer"
-                  >
-                    <div className="flex items-start justify-between w-full">
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-2">
-                          <h4 className="font-medium text-sm">{notification.title}</h4>
-                          {!notification.read && (
-                            <div className="w-2 h-2 bg-primary rounded-full" />
-                          )}
-                        </div>
-                        <p className="text-xs text-muted-foreground mt-1">{notification.message}</p>
-                      </div>
-                    </div>
-                    <span className="text-xs text-muted-foreground mt-2">{notification.time}</span>
-                  </DropdownMenuItem>
-                ))
+        {/* Notifications */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="sm" className="relative">
+              <Bell className="w-5 h-5" />
+              {unreadCount > 0 && (
+                <Badge 
+                  variant="destructive" 
+                  className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 text-xs"
+                >
+                  {unreadCount}
+                </Badge>
               )}
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-80">
+            <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {notifications.length === 0 ? (
+              <div className="px-4 py-8 text-center text-muted-foreground">
+                No notifications
+              </div>
+            ) : (
+              notifications.map((notification) => (
+                <DropdownMenuItem
+                  key={notification.id}
+                  className="flex-col items-start p-4 cursor-pointer"
+                >
+                  <div className="flex items-start justify-between w-full">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-2">
+                        <h4 className="font-medium text-sm">{notification.title}</h4>
+                        {!notification.read && (
+                          <div className="w-2 h-2 bg-primary rounded-full" />
+                        )}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-1">{notification.message}</p>
+                    </div>
+                  </div>
+                  <span className="text-xs text-muted-foreground mt-2">{notification.time}</span>
+                </DropdownMenuItem>
+              ))
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
 
-          {/* User menu */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
-                <Avatar className="h-8 w-8">
-                  <AvatarImage src="/avatars/user.png" alt="User" />
-                  <AvatarFallback>JD</AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" align="end">
-              <DropdownMenuLabel>
-                <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium">John Doe</p>
-                  <p className="text-xs text-muted-foreground">john@genvora.co.uk</p>
-                </div>
-              </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => window.location.href = '/settings#profile'}>
-                <User className="mr-2 h-4 w-4" />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => window.location.href = '/settings'}>
-                <Settings className="mr-2 h-4 w-4" />
-                Settings
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive">
-                <LogOut className="mr-2 h-4 w-4" />
-                Log out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </header>
-      
-      {/* Global Search Component */}
-      <GlobalSearchComponent />
-    </>
+        {/* User menu */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+              <Avatar className="h-8 w-8">
+                <AvatarImage src="/avatars/user.png" alt="User" />
+                <AvatarFallback>JD</AvatarFallback>
+              </Avatar>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56" align="end">
+            <DropdownMenuLabel>
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium">John Doe</p>
+                <p className="text-xs text-muted-foreground">john@genvora.co.uk</p>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => window.location.href = '/settings#profile'}>
+              <User className="mr-2 h-4 w-4" />
+              Profile
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => window.location.href = '/settings'}>
+              <Settings className="mr-2 h-4 w-4" />
+              Settings
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="text-destructive">
+              <LogOut className="mr-2 h-4 w-4" />
+              Log out
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </header>
   )
 }
