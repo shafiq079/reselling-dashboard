@@ -7,8 +7,9 @@ import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import CustomToggle from '@/components/custom-toggle'
+import { useTheme } from 'next-themes'
 import { 
   Settings, 
   User, 
@@ -26,6 +27,7 @@ import {
 } from 'lucide-react'
 
 export default function Settings() {
+  const { theme, setTheme } = useTheme()
   return (
     <MainLayout>
       <div className="space-y-6">
@@ -70,23 +72,23 @@ export default function Settings() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-4">
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <Label htmlFor="business-name">Business Name</Label>
                       <Input id="business-name" defaultValue="GENVORA" />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <Label htmlFor="business-email">Business Email</Label>
                       <Input id="business-email" defaultValue="john@genvora.co.uk" />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <Label htmlFor="business-phone">Business Phone</Label>
                       <Input id="business-phone" defaultValue="+44 123 456 7890" />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <Label htmlFor="business-address">Business Address</Label>
                       <Input id="business-address" defaultValue="123 Business St, London, UK" />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <Label htmlFor="currency">Default Currency</Label>
                       <Select defaultValue="GBP">
                         <SelectTrigger>
@@ -116,26 +118,26 @@ export default function Settings() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Dark Mode</Label>
+                        <Label htmlFor="dark-mode-switch">Dark Mode</Label>
                         <p className="text-sm text-muted-foreground">Enable dark theme</p>
                       </div>
-                      <Switch defaultChecked={false} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                      <CustomToggle id="dark-mode-switch" defaultChecked={theme === 'dark'} colorClass="green" onChange={(checked) => setTheme(checked ? 'dark' : 'light')} />
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Compact View</Label>
+                        <Label htmlFor="compact-view-switch">Compact View</Label>
                         <p className="text-sm text-muted-foreground">Show more data in less space</p>
                       </div>
-                      <Switch defaultChecked={false} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                      <CustomToggle id="compact-view-switch" defaultChecked={false} colorClass="green" />
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
-                        <Label>Real-time Updates</Label>
+                        <Label htmlFor="real-time-updates-switch">Real-time Updates</Label>
                         <p className="text-sm text-muted-foreground">Live data refresh</p>
                       </div>
-                      <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                      <CustomToggle id="real-time-updates-switch" defaultChecked={true} colorClass="green" />
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <Label htmlFor="items-per-page">Items Per Page</Label>
                       <Select defaultValue="25">
                         <SelectTrigger>
@@ -149,7 +151,7 @@ export default function Settings() {
                         </SelectContent>
                       </Select>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <Label htmlFor="date-format">Date Format</Label>
                       <Select defaultValue="DD/MM/YYYY">
                         <SelectTrigger>
@@ -176,25 +178,25 @@ export default function Settings() {
                   <CardDescription>Configure financial preferences</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <Label htmlFor="vat-rate">VAT Rate (%)</Label>
                     <Input id="vat-rate" type="number" defaultValue="20" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
-                      <Label>Include VAT in Prices</Label>
+                      <Label htmlFor="include-vat-switch">Include VAT in Prices</Label>
                       <p className="text-sm text-muted-foreground">Show prices with VAT included</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="include-vat-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
-                      <Label>Auto-calculate Fees</Label>
+                      <Label htmlFor="auto-calculate-fees-switch">Auto-calculate Fees</Label>
                       <p className="text-sm text-muted-foreground">Calculate platform fees automatically</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="auto-calculate-fees-switch" defaultChecked={true} colorClass="green" />
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <Label htmlFor="profit-formula">Profit Calculation</Label>
                     <Select defaultValue="revenue-fees-cost">
                       <SelectTrigger>
@@ -220,7 +222,7 @@ export default function Settings() {
                   <CardDescription>Configure shipping preferences</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div>
+                  <div className="space-y-3">
                     <Label htmlFor="default-carrier">Default Carrier</Label>
                     <Select defaultValue="royal-mail">
                       <SelectTrigger>
@@ -236,19 +238,19 @@ export default function Settings() {
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Auto-select Shipping</Label>
+                      <Label htmlFor="auto-select-shipping-switch">Auto-select Shipping</Label>
                       <p className="text-sm text-muted-foreground">Automatically choose best shipping</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="auto-select-shipping-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Tracking Updates</Label>
+                      <Label htmlFor="tracking-updates-switch">Tracking Updates</Label>
                       <p className="text-sm text-muted-foreground">Auto-update tracking status</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="tracking-updates-switch" defaultChecked={true} colorClass="green" />
                   </div>
-                  <div>
+                  <div className="space-y-3">
                     <Label htmlFor="package-defaults">Package Defaults</Label>
                     <Select defaultValue="small-parcel">
                       <SelectTrigger>
@@ -319,19 +321,19 @@ export default function Settings() {
                     <div className="space-y-4">
                       <h4 className="font-medium text-sm text-muted-foreground uppercase tracking-wider">Personal Information</h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label htmlFor="first-name">First Name</Label>
                           <Input id="first-name" defaultValue="John" />
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label htmlFor="last-name">Last Name</Label>
                           <Input id="last-name" defaultValue="Doe" />
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label htmlFor="email">Email Address</Label>
                           <Input id="email" type="email" defaultValue="john@genvora.co.uk" />
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label htmlFor="phone">Phone Number</Label>
                           <Input id="phone" defaultValue="+44 123 456 7890" />
                         </div>
@@ -342,19 +344,19 @@ export default function Settings() {
                     <div className="space-y-4">
                       <h4 className="font-medium text-sm text-muted-foreground uppercase tracking-wider">Address Information</h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2 md:col-span-2">
+                        <div className="space-y-3 md:col-span-2">
                           <Label htmlFor="address">Street Address</Label>
                           <Input id="address" defaultValue="123 Business Street" />
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label htmlFor="city">City</Label>
                           <Input id="city" defaultValue="London" />
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label htmlFor="postal-code">Postal Code</Label>
                           <Input id="postal-code" defaultValue="EC1A 1BB" />
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label htmlFor="country">Country</Label>
                           <Select defaultValue="GB">
                             <SelectTrigger>
@@ -375,7 +377,7 @@ export default function Settings() {
                     <div className="space-y-4">
                       <h4 className="font-medium text-sm text-muted-foreground uppercase tracking-wider">Preferences</h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label htmlFor="timezone">Timezone</Label>
                           <Select defaultValue="Europe/London">
                             <SelectTrigger>
@@ -389,7 +391,7 @@ export default function Settings() {
                             </SelectContent>
                           </Select>
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label htmlFor="language">Language</Label>
                           <Select defaultValue="en">
                             <SelectTrigger>
@@ -412,19 +414,19 @@ export default function Settings() {
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
                           <div className="space-y-1">
-                            <Label>Enable Search Suggestions</Label>
+                            <Label htmlFor="enable-search-suggestions-switch">Enable Search Suggestions</Label>
                             <p className="text-sm text-muted-foreground">Show suggestions while typing</p>
                           </div>
-                          <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                          <CustomToggle id="enable-search-suggestions-switch" defaultChecked={true} colorClass="green" />
                         </div>
                         <div className="flex items-center justify-between">
                           <div className="space-y-1">
-                            <Label>Search History</Label>
+                            <Label htmlFor="search-history-switch">Search History</Label>
                             <p className="text-sm text-muted-foreground">Save search queries for quick access</p>
                           </div>
-                          <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                          <CustomToggle id="search-history-switch" defaultChecked={true} colorClass="green" />
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           <Label htmlFor="search-results">Default Search Results</Label>
                           <Select defaultValue="25">
                             <SelectTrigger>
@@ -659,40 +661,40 @@ export default function Settings() {
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>New Orders</Label>
+                      <Label htmlFor="new-orders-switch">New Orders</Label>
                       <p className="text-sm text-muted-foreground">Get notified of new orders</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="new-orders-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Low Stock Alerts</Label>
+                      <Label htmlFor="low-stock-alerts-switch">Low Stock Alerts</Label>
                       <p className="text-sm text-muted-foreground">When inventory runs low</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="low-stock-alerts-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Shipping Delays</Label>
+                      <Label htmlFor="shipping-delays-switch">Shipping Delays</Label>
                       <p className="text-sm text-muted-foreground">When shipments are delayed</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="shipping-delays-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Pending Payouts</Label>
+                      <Label htmlFor="pending-payouts-switch">Pending Payouts</Label>
                       <p className="text-sm text-muted-foreground">When payouts are pending</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="pending-payouts-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Weekly Reports</Label>
+                      <Label htmlFor="weekly-reports-switch">Weekly Reports</Label>
                       <p className="text-sm text-muted-foreground">Weekly business summary</p>
                     </div>
-                    <Switch defaultChecked={false} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="weekly-reports-switch" defaultChecked={false} colorClass="green" />
                   </div>
-                  <div>
+                  <div className="space-y-3">
                     <Label htmlFor="email-frequency">Email Frequency</Label>
                     <Select defaultValue="immediate">
                       <SelectTrigger>
@@ -721,40 +723,40 @@ export default function Settings() {
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Revenue Milestones</Label>
+                      <Label htmlFor="revenue-milestones-switch">Revenue Milestones</Label>
                       <p className="text-sm text-muted-foreground">When revenue targets are hit</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="revenue-milestones-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Profit Alerts</Label>
+                      <Label htmlFor="profit-alerts-switch">Profit Alerts</Label>
                       <p className="text-sm text-muted-foreground">Significant profit changes</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="profit-alerts-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Best Selling Products</Label>
+                      <Label htmlFor="best-selling-products-switch">Best Selling Products</Label>
                       <p className="text-sm text-muted-foreground">New top performers</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="best-selling-products-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>System Updates</Label>
+                      <Label htmlFor="system-updates-switch">System Updates</Label>
                       <p className="text-sm text-muted-foreground">Platform updates and news</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="system-updates-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Integration Status</Label>
+                      <Label htmlFor="integration-status-switch">Integration Status</Label>
                       <p className="text-sm text-muted-foreground">When integrations fail</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="integration-status-switch" defaultChecked={true} colorClass="green" />
                   </div>
-                  <div>
+                  <div className="space-y-3">
                     <Label htmlFor="notification-sound">Notification Sound</Label>
                     <Select defaultValue="chime">
                       <SelectTrigger>
@@ -785,31 +787,31 @@ export default function Settings() {
                   <CardDescription>Protect your account</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div>
+                  <div className="space-y-3">
                     <Label htmlFor="current-password">Current Password</Label>
                     <Input id="current-password" type="password" />
                   </div>
-                  <div>
+                  <div className="space-y-3">
                     <Label htmlFor="new-password">New Password</Label>
                     <Input id="new-password" type="password" />
                   </div>
-                  <div>
+                  <div className="space-y-3">
                     <Label htmlFor="confirm-password">Confirm Password</Label>
                     <Input id="confirm-password" type="password" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Two-Factor Authentication</Label>
+                      <Label htmlFor="two-factor-authentication-switch">Two-Factor Authentication</Label>
                       <p className="text-sm text-muted-foreground">Add extra security layer</p>
                     </div>
-                    <Switch defaultChecked={false} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="two-factor-authentication-switch" defaultChecked={false} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Login Notifications</Label>
+                      <Label htmlFor="login-notifications-switch">Login Notifications</Label>
                       <p className="text-sm text-muted-foreground">Alert on new logins</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="login-notifications-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <Button className="w-full">
                     Update Password
@@ -829,33 +831,33 @@ export default function Settings() {
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Data Collection</Label>
+                      <Label htmlFor="data-collection-switch">Data Collection</Label>
                       <p className="text-sm text-muted-foreground">Help improve the product</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="data-collection-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Analytics Tracking</Label>
+                      <Label htmlFor="analytics-tracking-switch">Analytics Tracking</Label>
                       <p className="text-sm text-muted-foreground">Usage analytics and insights</p>
                     </div>
-                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="analytics-tracking-switch" defaultChecked={true} colorClass="green" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label>Marketing Communications</Label>
+                      <Label htmlFor="marketing-communications-switch">Marketing Communications</Label>
                       <p className="text-sm text-muted-foreground">Product updates and news</p>
                     </div>
-                    <Switch defaultChecked={false} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                    <CustomToggle id="marketing-communications-switch" defaultChecked={false} colorClass="green" />
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <Label>Data Export</Label>
                     <p className="text-sm text-muted-foreground">Download all your data</p>
                     <Button variant="outline" size="sm" className="w-full">
                       Export Data
                     </Button>
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <Label>Data Retention</Label>
                     <p className="text-sm text-muted-foreground">Keep data for specified period</p>
                     <Select defaultValue="2years">

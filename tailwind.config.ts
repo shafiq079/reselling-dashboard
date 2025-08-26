@@ -55,12 +55,17 @@ const config: Config = {
                 borderRadius: {
                         lg: 'var(--radius)',
                         md: 'calc(var(--radius) - 2px)',
-                        sm: 'calc(var(--radius) - 4px)'
+                        sm: 'calc(var(--radius) - 4px)',
+                        full: '9999px', // Add full for rounded-full
                 },
                 animation: {
                         'float': 'float 6s ease-in-out infinite',
                         'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
                         'gradient': 'gradient 2s ease infinite',
+                        'grow-in': 'grow-in .2s cubic-bezier(.75, 0, 1, 1) forwards',
+                        'bounce-in': 'bounce-in .2s cubic-bezier(0, 0, 0.3, 1.5) .2s forwards',
+                        'grow-out': 'grow-out .2s cubic-bezier(.75, 0, 1, 1) forwards',
+                        'bounce-out': 'bounce-out .2s cubic-bezier(0, 0, 0.3, 1.5) .2s forwards',
                 },
                 keyframes: {
                         float: {
@@ -76,9 +81,48 @@ const config: Config = {
                                 '50%': { backgroundPosition: '100% 50%' },
                                 '100%': { backgroundPosition: '0% 50%' },
                         },
+                        'grow-in': {
+                            '0%': {
+                                borderRadius: '11px',
+                                transform: 'translateX(0) scale(1)',
+                            },
+                            '100%': {
+                                borderRadius: `${(1 / (34 / 22) * 11)}px / ${(1 / (16 / 22) * 11)}px`,
+                                transform: 'translateX(8px) scale(calc(34 / 22), calc(16 / 22))',
+                            },
+                        },
+                        'bounce-in': {
+                            '0%': {
+                                borderRadius: `${(1 / (34 / 22) * 11)}px / ${(1 / (16 / 22) * 11)}px`,
+                                transform: 'translateX(8px) scale(calc(34 / 22), calc(16 / 22))',
+                            },
+                            '100%': {
+                                borderRadius: '11px',
+                                transform: 'translateX(100%) scale(1)',
+                            },
+                        },
+                        'grow-out': {
+                            '0%': {
+                                borderRadius: '11px',
+                                transform: 'translateX(100%) scale(1)',
+                            },
+                            '100%': {
+                                borderRadius: `${(1 / (34 / 22) * 11)}px / ${(1 / (16 / 22) * 11)}px`,
+                                transform: 'translateX(2px) scale(calc(34 / 22), calc(16 / 22))',
+                            },
+                        },
+                        'bounce-out': {
+                            '0%': {
+                                borderRadius: `${(1 / (34 / 22) * 11)}px / ${(1 / (16 / 22) * 11)}px`,
+                                transform: 'translateX(2px) scale(calc(34 / 22), calc(16 / 22))',
+                            },
+                            '100%': {
+                                borderRadius: '11px',
+                                transform: 'translateX(0) scale(1)',
+                            },
+                        },
                 },
         }
   },
   plugins: [tailwindcssAnimate],
 };
-export default config;
