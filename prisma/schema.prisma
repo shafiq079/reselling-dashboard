@@ -1,0 +1,223 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders      Order[]
+  expenses    Expense[]
+  investments Investment[]
+  tickets     Ticket[]
+}
+
+model Product {
+  id            String   @id @default(cuid())
+  sku           String   @unique
+  name          String
+  description   String?
+  quantity      Int      @default(0)
+  binLocation   String?
+  cost          Float
+  marketValue   Float?
+  condition     String   @default("new")
+  supplier      String?
+  reorderPoint  Int      @default(0)
+  category      String?
+  brand         String?
+  weight        Float?
+  dimensions    String?
+  listingStatus String   @default("active")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  orderItems OrderItem[]
+  images     ProductImage[]
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  url       String
+  altText   String?
+  isPrimary Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Order {
+  id              String      @id @default(cuid())
+  orderNumber     String      @unique
+  channel         String      // eBay, Amazon, Vinted, Depop
+  channelOrderId  String?
+  customerName    String
+  customerEmail   String?
+  customerPhone   String?
+  shippingAddress String?
+  status          String      @default("pending") // pending, paid, shipped, delivered, cancelled
+  subtotal        Float
+  shippingCost    Float       @default(0)
+  platformFees    Float       @default(0)
+  total           Float
+  netProfit       Float?
+  trackingNumber  String?
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  userId    String?
+  items     OrderItem[]
+  payments  Payment[]
+  shipment  Shipment?
+
+  user User? @relation(fields: [userId], references: [id])
+}
+
+model OrderItem {
+  id        String @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+  createdAt DateTime @default(now())
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+}
+
+model Payment {
+  id          String   @id @default(cuid())
+  orderId     String
+  amount      Float
+  method      String   // PayPal, Bank Transfer, etc.
+  status      String   @default("pending") // pending, completed, failed
+  transactionId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model Ticket {
+  id          String   @id @default(cuid())
+  event       String
+  venue       String
+  eventDate   DateTime
+  seats       String
+  section     String?
+  row         String?
+  cost        Float
+  listPrice   Float
+  salePrice   Float?
+  status      String   @default("available") // available, listed, sold, expired
+  payoutStatus String  @default("pending") // pending, paid, cancelled
+  deadline    DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String?
+  user   User?  @relation(fields: [userId], references: [id])
+}
+
+model Investment {
+  id             String   @id @default(cuid())
+  type           String   // TCG, Physical, Digital
+  name           String
+  description    String?
+  acquisitionDate DateTime
+  acquisitionCost Float
+  quantity       Int      @default(1)
+  currentValue   Float?
+  targetExitPrice Float?
+  targetExitDate DateTime?
+  status         String   @default("active") // active, sold, liquidated
+  roi            Float?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  userId String?
+  user   User?  @relation(fields: [userId], references: [id])
+}
+
+model Expense {
+  id          String   @id @default(cuid())
+  description String
+  amount      Float
+  category    String   // Office, Shipping, Marketing, etc.
+  vatRate     Float    @default(0.2) // UK VAT rate
+  vatAmount   Float
+  totalAmount Float
+  date        DateTime
+  receiptUrl  String?
+  status      String   @default("pending") // pending, approved, paid
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  userId String?
+  user   User?  @relation(fields: [userId], references: [id])
+}
+
+model ShippingRule {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  service     String   // Royal Mail Tracked, Special Delivery, etc.
+  weightMin   Float?
+  weightMax   Float?
+  priceMin    Float?
+  priceMax    Float?
+  cost        Float
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Shipment {
+  id            String   @id @default(cuid())
+  orderId       String   @unique
+  carrier       String   // Royal Mail, DHL, etc.
+  service       String
+  trackingNumber String
+  weight        Float
+  dimensions    String?
+  cost          Float
+  labelUrl      String?
+  status        String   @default("created") // created, printed, dispatched, delivered
+  shippedAt     DateTime?
+  deliveredAt   DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+model ApiIntegration {
+  id          String   @id @default(cuid())
+  platform    String   // eBay, Amazon, Royal Mail, Xero
+  name        String
+  apiKey      String?
+  apiSecret   String?
+  accessToken String?
+  refreshToken String?
+  isActive    Boolean  @default(false)
+  lastSyncAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
