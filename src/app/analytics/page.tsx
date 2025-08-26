@@ -667,46 +667,80 @@ export default function Analytics() {
                       <Users className="w-5 h-5 mr-2" />
                       Sales Channel Performance
                     </CardTitle>
-                    <CardDescription>Revenue, profit, and fees by sales channel</CardDescription>
+                    <CardDescription>Revenue distribution by sales channel</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="h-72 mb-6">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={currentData.channels} layout="horizontal">
-                          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                          <XAxis 
-                            type="number"
-                            stroke="#6b7280"
-                            fontSize={11}
-                            tickLine={false}
-                            tickFormatter={(value) => `£${value/1000}k`}
-                          />
-                          <YAxis 
-                            dataKey="channel" 
-                            type="category"
-                            stroke="#6b7280"
-                            fontSize={11}
-                            tickLine={false}
-                            width={80}
-                          />
-                          <Tooltip
-                            formatter={(value, name) => [
-                              `£${Number(value).toLocaleString()}`,
-                              name === 'revenue' ? 'Revenue' : name === 'profit' ? 'Profit' : 'Fees'
-                            ]}
-                            contentStyle={{
-                              backgroundColor: '#ffffff',
-                              border: '1px solid #e5e7eb',
-                              borderRadius: '0.5rem',
-                              fontSize: '12px'
-                            }}
-                          />
-                          <Bar dataKey="revenue" fill="#3b82f6" name="Revenue" radius={[0, 4, 4, 0]} />
-                          <Bar dataKey="profit" fill="#10b981" name="Profit" radius={[0, 4, 4, 0]} />
-                        </BarChart>
-                      </ResponsiveContainer>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <div className="h-64">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <RechartsPieChart>
+                            <Pie
+                              data={currentData.channels}
+                              cx="50%"
+                              cy="50%"
+                              innerRadius={40}
+                              outerRadius={80}
+                              paddingAngle={5}
+                              dataKey="revenue"
+                              nameKey="channel"
+                            >
+                              {currentData.channels.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={[
+                                  '#3b82f6', // blue - eBay
+                                  '#10b981', // green - Amazon
+                                  '#f59e0b', // orange - Vinted
+                                  '#8b5cf6'  // purple - Depop
+                                ][index]} />
+                              ))}
+                            </Pie>
+                            <Tooltip
+                              formatter={(value) => [`£${Number(value).toLocaleString()}`, 'Revenue']}
+                              contentStyle={{
+                                backgroundColor: '#ffffff',
+                                border: '1px solid #e5e7eb',
+                                borderRadius: '0.5rem',
+                                fontSize: '12px'
+                              }}
+                            />
+                            <Legend />
+                          </RechartsPieChart>
+                        </ResponsiveContainer>
+                      </div>
+                      <div className="h-64">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <BarChart data={currentData.channels}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                            <XAxis 
+                              dataKey="channel" 
+                              stroke="#6b7280"
+                              fontSize={11}
+                              tickLine={false}
+                            />
+                            <YAxis 
+                              stroke="#6b7280"
+                              fontSize={11}
+                              tickLine={false}
+                              tickFormatter={(value) => `£${value/1000}k`}
+                            />
+                            <Tooltip
+                              formatter={(value, name) => [
+                                `£${Number(value).toLocaleString()}`,
+                                name === 'revenue' ? 'Revenue' : name === 'profit' ? 'Profit' : 'Fees'
+                              ]}
+                              contentStyle={{
+                                backgroundColor: '#ffffff',
+                                border: '1px solid #e5e7eb',
+                                borderRadius: '0.5rem',
+                                fontSize: '12px'
+                              }}
+                            />
+                            <Bar dataKey="revenue" fill="#3b82f6" name="Revenue" radius={[4, 4, 0, 0]} />
+                            <Bar dataKey="profit" fill="#10b981" name="Profit" radius={[4, 4, 0, 0]} />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                       {currentData.channels.map((channel, index) => (
                         <div key={index} className="p-4 rounded-xl bg-muted/10 border border-border/50 hover:bg-muted/20 transition-all duration-300">
                           <div className="flex items-center justify-between mb-3">
@@ -753,45 +787,83 @@ export default function Analytics() {
                       <Package className="w-5 h-5 mr-2" />
                       Top Performing Products
                     </CardTitle>
-                    <CardDescription>Best-selling products by revenue and profit</CardDescription>
+                    <CardDescription>Best-selling products by revenue and profit margin</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="h-64 mb-6">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={currentData.products} layout="horizontal">
-                          <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                          <XAxis 
-                            type="number"
-                            stroke="#6b7280"
-                            fontSize={11}
-                            tickLine={false}
-                            tickFormatter={(value) => `£${value/1000}k`}
-                          />
-                          <YAxis 
-                            dataKey="name" 
-                            type="category"
-                            stroke="#6b7280"
-                            fontSize={11}
-                            tickLine={false}
-                            width={120}
-                          />
-                          <Tooltip
-                            formatter={(value, name) => [
-                              `£${Number(value).toLocaleString()}`,
-                              name === 'revenue' ? 'Revenue' : 'Profit'
-                            ]}
-                            contentStyle={{
-                              backgroundColor: '#ffffff',
-                              border: '1px solid #e5e7eb',
-                              borderRadius: '0.5rem',
-                              fontSize: '12px'
-                            }}
-                          />
-                          <Bar dataKey="revenue" fill="#8b5cf6" name="Revenue" radius={[0, 4, 4, 0]} />
-                        </BarChart>
-                      </ResponsiveContainer>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <div className="h-64">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <BarChart data={currentData.products} layout="horizontal">
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                            <XAxis 
+                              type="number"
+                              stroke="#6b7280"
+                              fontSize={11}
+                              tickLine={false}
+                              tickFormatter={(value) => `£${value}`}
+                            />
+                            <YAxis 
+                              dataKey="name" 
+                              type="category"
+                              stroke="#6b7280"
+                              fontSize={11}
+                              tickLine={false}
+                              width={120}
+                            />
+                            <Tooltip
+                              formatter={(value, name) => [
+                                `£${Number(value).toLocaleString()}`,
+                                name === 'revenue' ? 'Revenue' : 'Profit'
+                              ]}
+                              contentStyle={{
+                                backgroundColor: '#ffffff',
+                                border: '1px solid #e5e7eb',
+                                borderRadius: '0.5rem',
+                                fontSize: '12px'
+                              }}
+                            />
+                            <Bar dataKey="revenue" fill="#8b5cf6" name="Revenue" radius={[0, 4, 4, 0]} />
+                          </BarChart>
+                        </ResponsiveContainer>
+                      </div>
+                      <div className="h-64">
+                        <ResponsiveContainer width="100%" height="100%">
+                          <RechartsPieChart>
+                            <Pie
+                              data={currentData.products}
+                              cx="50%"
+                              cy="50%"
+                              innerRadius={40}
+                              outerRadius={80}
+                              paddingAngle={5}
+                              dataKey="profit"
+                              nameKey="name"
+                            >
+                              {currentData.products.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={[
+                                  '#8b5cf6', // purple - iPhone
+                                  '#10b981', // green - Charizard
+                                  '#f59e0b', // orange - Nike
+                                  '#3b82f6', // blue - PlayStation
+                                  '#ec4899'  // pink - Pikachu
+                                ][index]} />
+                              ))}
+                            </Pie>
+                            <Tooltip
+                              formatter={(value) => [`£${Number(value).toLocaleString()}`, 'Profit']}
+                              contentStyle={{
+                                backgroundColor: '#ffffff',
+                                border: '1px solid #e5e7eb',
+                                borderRadius: '0.5rem',
+                                fontSize: '12px'
+                              }}
+                            />
+                            <Legend />
+                          </RechartsPieChart>
+                        </ResponsiveContainer>
+                      </div>
                     </div>
-                    <div className="space-y-3">
+                    <div className="space-y-3 mt-6">
                       {currentData.products.map((product, index) => (
                         <div key={index} className="flex items-center justify-between p-4 rounded-xl bg-muted/10 border border-border/50 hover:bg-muted/20 transition-all duration-300">
                           <div className="flex items-center space-x-4">

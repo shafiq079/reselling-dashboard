@@ -49,8 +49,9 @@ export default function Settings() {
 
         {/* Settings Tabs */}
         <Tabs defaultValue="general" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-5">
             <TabsTrigger value="general">General</TabsTrigger>
+            <TabsTrigger value="profile">Profile</TabsTrigger>
             <TabsTrigger value="integrations">Integrations</TabsTrigger>
             <TabsTrigger value="notifications">Notifications</TabsTrigger>
             <TabsTrigger value="security">Security</TabsTrigger>
@@ -118,21 +119,21 @@ export default function Settings() {
                         <Label>Dark Mode</Label>
                         <p className="text-sm text-muted-foreground">Enable dark theme</p>
                       </div>
-                      <Switch defaultChecked={false} />
+                      <Switch defaultChecked={false} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
                         <Label>Compact View</Label>
                         <p className="text-sm text-muted-foreground">Show more data in less space</p>
                       </div>
-                      <Switch defaultChecked={false} />
+                      <Switch defaultChecked={false} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                     </div>
                     <div className="flex items-center justify-between">
                       <div className="space-y-1">
                         <Label>Real-time Updates</Label>
                         <p className="text-sm text-muted-foreground">Live data refresh</p>
                       </div>
-                      <Switch defaultChecked={true} />
+                      <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="items-per-page">Items Per Page</Label>
@@ -184,14 +185,14 @@ export default function Settings() {
                       <Label>Include VAT in Prices</Label>
                       <p className="text-sm text-muted-foreground">Show prices with VAT included</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
                       <Label>Auto-calculate Fees</Label>
                       <p className="text-sm text-muted-foreground">Calculate platform fees automatically</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="profit-formula">Profit Calculation</Label>
@@ -219,7 +220,7 @@ export default function Settings() {
                   <CardDescription>Configure shipping preferences</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-2">
+                  <div>
                     <Label htmlFor="default-carrier">Default Carrier</Label>
                     <Select defaultValue="royal-mail">
                       <SelectTrigger>
@@ -234,20 +235,20 @@ export default function Settings() {
                     </Select>
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Auto-select Shipping</Label>
                       <p className="text-sm text-muted-foreground">Automatically choose best shipping</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Tracking Updates</Label>
                       <p className="text-sm text-muted-foreground">Auto-update tracking status</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
-                  <div className="space-y-2">
+                  <div>
                     <Label htmlFor="package-defaults">Package Defaults</Label>
                     <Select defaultValue="small-parcel">
                       <SelectTrigger>
@@ -263,6 +264,190 @@ export default function Settings() {
                   </div>
                 </CardContent>
               </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="profile" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Profile Overview */}
+              <div className="lg:col-span-1">
+                <Card className="card-modern">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <User className="w-5 h-5 mr-2" />
+                      Profile Overview
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex flex-col items-center space-y-4">
+                      <div className="w-24 h-24 bg-gradient-to-br from-primary to-primary/70 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+                        JD
+                      </div>
+                      <div className="text-center">
+                        <h3 className="font-semibold text-lg">John Doe</h3>
+                        <p className="text-muted-foreground">john@genvora.co.uk</p>
+                        <Badge variant="secondary" className="mt-2">Administrator</Badge>
+                      </div>
+                    </div>
+                    <div className="space-y-3 pt-4 border-t">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Member Since</span>
+                        <span>Jan 2023</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Last Login</span>
+                        <span>2 hours ago</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Account Status</span>
+                        <Badge variant="default" className="text-xs">Active</Badge>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Profile Details */}
+              <div className="lg:col-span-2">
+                <Card className="card-modern">
+                  <CardHeader>
+                    <CardTitle>Profile Information</CardTitle>
+                    <CardDescription>Update your personal information and preferences</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Personal Information */}
+                    <div className="space-y-4">
+                      <h4 className="font-medium text-sm text-muted-foreground uppercase tracking-wider">Personal Information</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="first-name">First Name</Label>
+                          <Input id="first-name" defaultValue="John" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="last-name">Last Name</Label>
+                          <Input id="last-name" defaultValue="Doe" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email Address</Label>
+                          <Input id="email" type="email" defaultValue="john@genvora.co.uk" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="phone">Phone Number</Label>
+                          <Input id="phone" defaultValue="+44 123 456 7890" />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Address Information */}
+                    <div className="space-y-4">
+                      <h4 className="font-medium text-sm text-muted-foreground uppercase tracking-wider">Address Information</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2 md:col-span-2">
+                          <Label htmlFor="address">Street Address</Label>
+                          <Input id="address" defaultValue="123 Business Street" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="city">City</Label>
+                          <Input id="city" defaultValue="London" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="postal-code">Postal Code</Label>
+                          <Input id="postal-code" defaultValue="EC1A 1BB" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="country">Country</Label>
+                          <Select defaultValue="GB">
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="GB">United Kingdom</SelectItem>
+                              <SelectItem value="US">United States</SelectItem>
+                              <SelectItem value="CA">Canada</SelectItem>
+                              <SelectItem value="AU">Australia</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Preferences */}
+                    <div className="space-y-4">
+                      <h4 className="font-medium text-sm text-muted-foreground uppercase tracking-wider">Preferences</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="timezone">Timezone</Label>
+                          <Select defaultValue="Europe/London">
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Europe/London">GMT (London)</SelectItem>
+                              <SelectItem value="America/New_York">EST (New York)</SelectItem>
+                              <SelectItem value="America/Los_Angeles">PST (Los Angeles)</SelectItem>
+                              <SelectItem value="Asia/Tokyo">JST (Tokyo)</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="language">Language</Label>
+                          <Select defaultValue="en">
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="en">English</SelectItem>
+                              <SelectItem value="es">Spanish</SelectItem>
+                              <SelectItem value="fr">French</SelectItem>
+                              <SelectItem value="de">German</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Search Preferences */}
+                    <div className="space-y-4">
+                      <h4 className="font-medium text-sm text-muted-foreground uppercase tracking-wider">Search Preferences</h4>
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <div className="space-y-1">
+                            <Label>Enable Search Suggestions</Label>
+                            <p className="text-sm text-muted-foreground">Show suggestions while typing</p>
+                          </div>
+                          <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="space-y-1">
+                            <Label>Search History</Label>
+                            <p className="text-sm text-muted-foreground">Save search queries for quick access</p>
+                          </div>
+                          <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="search-results">Default Search Results</Label>
+                          <Select defaultValue="25">
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="10">10 results</SelectItem>
+                              <SelectItem value="25">25 results</SelectItem>
+                              <SelectItem value="50">50 results</SelectItem>
+                              <SelectItem value="100">100 results</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end space-x-3 pt-4 border-t">
+                      <Button variant="outline">Cancel</Button>
+                      <Button>Update Profile</Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
           </TabsContent>
 
@@ -473,41 +658,41 @@ export default function Settings() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>New Orders</Label>
                       <p className="text-sm text-muted-foreground">Get notified of new orders</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Low Stock Alerts</Label>
                       <p className="text-sm text-muted-foreground">When inventory runs low</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Shipping Delays</Label>
                       <p className="text-sm text-muted-foreground">When shipments are delayed</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Pending Payouts</Label>
                       <p className="text-sm text-muted-foreground">When payouts are pending</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Weekly Reports</Label>
                       <p className="text-sm text-muted-foreground">Weekly business summary</p>
                     </div>
-                    <Switch defaultChecked={false} />
+                    <Switch defaultChecked={false} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
-                  <div className="space-y-2">
+                  <div>
                     <Label htmlFor="email-frequency">Email Frequency</Label>
                     <Select defaultValue="immediate">
                       <SelectTrigger>
@@ -535,41 +720,41 @@ export default function Settings() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Revenue Milestones</Label>
                       <p className="text-sm text-muted-foreground">When revenue targets are hit</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Profit Alerts</Label>
                       <p className="text-sm text-muted-foreground">Significant profit changes</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Best Selling Products</Label>
                       <p className="text-sm text-muted-foreground">New top performers</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>System Updates</Label>
                       <p className="text-sm text-muted-foreground">Platform updates and news</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Integration Status</Label>
                       <p className="text-sm text-muted-foreground">When integrations fail</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
-                  <div className="space-y-2">
+                  <div>
                     <Label htmlFor="notification-sound">Notification Sound</Label>
                     <Select defaultValue="chime">
                       <SelectTrigger>
@@ -600,31 +785,31 @@ export default function Settings() {
                   <CardDescription>Protect your account</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-2">
+                  <div>
                     <Label htmlFor="current-password">Current Password</Label>
                     <Input id="current-password" type="password" />
                   </div>
-                  <div className="space-y-2">
+                  <div>
                     <Label htmlFor="new-password">New Password</Label>
                     <Input id="new-password" type="password" />
                   </div>
-                  <div className="space-y-2">
+                  <div>
                     <Label htmlFor="confirm-password">Confirm Password</Label>
                     <Input id="confirm-password" type="password" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Two-Factor Authentication</Label>
                       <p className="text-sm text-muted-foreground">Add extra security layer</p>
                     </div>
-                    <Switch defaultChecked={false} />
+                    <Switch defaultChecked={false} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Login Notifications</Label>
                       <p className="text-sm text-muted-foreground">Alert on new logins</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <Button className="w-full">
                     Update Password
@@ -643,25 +828,25 @@ export default function Settings() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Data Collection</Label>
                       <p className="text-sm text-muted-foreground">Help improve the product</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Analytics Tracking</Label>
                       <p className="text-sm text-muted-foreground">Usage analytics and insights</p>
                     </div>
-                    <Switch defaultChecked={true} />
+                    <Switch defaultChecked={true} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div className="space-y-1">
+                    <div>
                       <Label>Marketing Communications</Label>
                       <p className="text-sm text-muted-foreground">Product updates and news</p>
                     </div>
-                    <Switch defaultChecked={false} />
+                    <Switch defaultChecked={false} className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-input" />
                   </div>
                   <div className="space-y-2">
                     <Label>Data Export</Label>

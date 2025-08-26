@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { RevenueChart } from '@/components/charts/revenue-chart'
+import { CategoryChart } from '@/components/charts/category-chart'
 import { 
   ShoppingCart, 
   Package, 
@@ -12,11 +14,7 @@ import {
   AlertTriangle, 
   DollarSign, 
   Percent,
-  BarChart3,
-  PieChart,
-  Clock,
-  Truck,
-  CreditCard
+  Truck
 } from 'lucide-react'
 
 export default function Dashboard() {
@@ -141,43 +139,11 @@ export default function Dashboard() {
               </TabsList>
               
               <TabsContent value="revenue" className="space-y-4">
-                <Card className="card-modern">
-                  <CardHeader>
-                    <CardTitle>Revenue Trends</CardTitle>
-                    <CardDescription>Monthly revenue for the last 6 months</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="h-64 flex items-center justify-center bg-muted/20 rounded-xl border border-border/50">
-                      <div className="text-center">
-                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
-                          <BarChart3 className="w-8 h-8 text-primary" />
-                        </div>
-                        <p className="text-muted-foreground">Interactive revenue chart will be displayed here</p>
-                        <p className="text-xs text-muted-foreground/70 mt-2">Powered by Recharts</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <RevenueChart />
               </TabsContent>
 
               <TabsContent value="categories" className="space-y-4">
-                <Card className="card-modern">
-                  <CardHeader>
-                    <CardTitle>Category Performance</CardTitle>
-                    <CardDescription>Sales by product category</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="h-64 flex items-center justify-center bg-muted/20 rounded-xl border border-border/50">
-                      <div className="text-center">
-                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 animate-float">
-                          <PieChart className="w-8 h-8 text-primary" />
-                        </div>
-                        <p className="text-muted-foreground">Category breakdown chart will be displayed here</p>
-                        <p className="text-xs text-muted-foreground/70 mt-2">Interactive donut chart</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                <CategoryChart />
               </TabsContent>
             </Tabs>
           </div>
