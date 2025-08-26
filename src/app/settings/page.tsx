@@ -219,7 +219,7 @@ export default function Settings() {
                   <CardDescription>Configure shipping preferences</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="default-carrier">Default Carrier</Label>
                     <Select defaultValue="royal-mail">
                       <SelectTrigger>
@@ -234,20 +234,20 @@ export default function Settings() {
                     </Select>
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Auto-select Shipping</Label>
                       <p className="text-sm text-muted-foreground">Automatically choose best shipping</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Tracking Updates</Label>
                       <p className="text-sm text-muted-foreground">Auto-update tracking status</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="package-defaults">Package Defaults</Label>
                     <Select defaultValue="small-parcel">
                       <SelectTrigger>
@@ -473,41 +473,41 @@ export default function Settings() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>New Orders</Label>
                       <p className="text-sm text-muted-foreground">Get notified of new orders</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Low Stock Alerts</Label>
                       <p className="text-sm text-muted-foreground">When inventory runs low</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Shipping Delays</Label>
                       <p className="text-sm text-muted-foreground">When shipments are delayed</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Pending Payouts</Label>
                       <p className="text-sm text-muted-foreground">When payouts are pending</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Weekly Reports</Label>
                       <p className="text-sm text-muted-foreground">Weekly business summary</p>
                     </div>
                     <Switch defaultChecked={false} />
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="email-frequency">Email Frequency</Label>
                     <Select defaultValue="immediate">
                       <SelectTrigger>
@@ -535,41 +535,41 @@ export default function Settings() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Revenue Milestones</Label>
                       <p className="text-sm text-muted-foreground">When revenue targets are hit</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Profit Alerts</Label>
                       <p className="text-sm text-muted-foreground">Significant profit changes</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Best Selling Products</Label>
                       <p className="text-sm text-muted-foreground">New top performers</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>System Updates</Label>
                       <p className="text-sm text-muted-foreground">Platform updates and news</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Integration Status</Label>
                       <p className="text-sm text-muted-foreground">When integrations fail</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="notification-sound">Notification Sound</Label>
                     <Select defaultValue="chime">
                       <SelectTrigger>
@@ -600,27 +600,27 @@ export default function Settings() {
                   <CardDescription>Protect your account</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="current-password">Current Password</Label>
                     <Input id="current-password" type="password" />
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="new-password">New Password</Label>
                     <Input id="new-password" type="password" />
                   </div>
-                  <div>
+                  <div className="space-y-2">
                     <Label htmlFor="confirm-password">Confirm Password</Label>
                     <Input id="confirm-password" type="password" />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Two-Factor Authentication</Label>
                       <p className="text-sm text-muted-foreground">Add extra security layer</p>
                     </div>
                     <Switch defaultChecked={false} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Login Notifications</Label>
                       <p className="text-sm text-muted-foreground">Alert on new logins</p>
                     </div>
@@ -643,21 +643,21 @@ export default function Settings() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Data Collection</Label>
                       <p className="text-sm text-muted-foreground">Help improve the product</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Analytics Tracking</Label>
                       <p className="text-sm text-muted-foreground">Usage analytics and insights</p>
                     </div>
                     <Switch defaultChecked={true} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <div>
+                    <div className="space-y-1">
                       <Label>Marketing Communications</Label>
                       <p className="text-sm text-muted-foreground">Product updates and news</p>
                     </div>
