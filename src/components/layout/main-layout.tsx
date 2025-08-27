@@ -20,10 +20,10 @@ export function MainLayout({ children }: MainLayoutProps) {
       />
       
       {/* Main Content Area */}
-      <div className="flex-1 lg:ml-0">
+      <div className="flex-1 lg:ml-0 min-w-0">
         <Header onMenuClick={() => setSidebarOpen(true)} />
         
-        <main className="p-6">
+        <main className="p-4 sm:p-6 lg:p-8">
           <div className="max-w-7xl mx-auto">
             {children}
           </div>

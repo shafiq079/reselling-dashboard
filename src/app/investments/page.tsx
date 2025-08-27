@@ -171,21 +171,21 @@ export default function InvestmentsPage() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Investment Hub</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Investment Hub</h1>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1 sm:mt-2">
               Track TCG cards, collectibles, and physical investments
             </p>
           </div>
-          <div className="mt-4 sm:mt-0 flex space-x-2">
-            <Button variant="outline" size="sm">
+          <div className="mt-3 sm:mt-0 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+            <Button variant="outline" size="sm" className="w-full sm:w-auto">
               <Download className="w-4 h-4 mr-2" />
               Export CSV
             </Button>
-            <Button>
+            <Button className="w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Add Investment
             </Button>
@@ -193,14 +193,14 @@ export default function InvestmentsPage() {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Investment</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">£{totalInvestment.toLocaleString()}</div>
+              <div className="text-xl sm:text-2xl font-bold">£{totalInvestment.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 {investments.length} investments
               </p>
@@ -213,7 +213,7 @@ export default function InvestmentsPage() {
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">£{totalCurrentValue.toLocaleString()}</div>
+              <div className="text-xl sm:text-2xl font-bold text-green-600">£{totalCurrentValue.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 Market value
               </p>
@@ -226,7 +226,7 @@ export default function InvestmentsPage() {
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className={`text-2xl font-bold ${totalProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+              <div className={`text-xl sm:text-2xl font-bold ${totalProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                 £{totalProfit.toLocaleString()}
               </div>
               <p className="text-xs text-muted-foreground">
@@ -241,7 +241,7 @@ export default function InvestmentsPage() {
               <CheckCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-xl sm:text-2xl font-bold text-blue-600">
                 {investments.filter(i => i.status === 'active').length}
               </div>
               <p className="text-xs text-muted-foreground">
@@ -258,7 +258,7 @@ export default function InvestmentsPage() {
             <CardDescription>View and manage your investment holdings</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
@@ -294,8 +294,96 @@ export default function InvestmentsPage() {
               </Select>
             </div>
 
-            {/* Investments Table */}
-            <div className="rounded-md border">
+            {/* Investments Table - Mobile Card View */}
+            <div className="block sm:hidden space-y-3">
+              {filteredInvestments.map((investment) => (
+                <Card key={investment.id} className="p-4">
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium text-sm truncate">{investment.name}</h3>
+                      <p className="text-xs text-gray-500 mt-1">{investment.description}</p>
+                      <div className="flex items-center space-x-1 mt-2">
+                        {getTypeIcon(investment.type)}
+                        <Badge variant="outline" className="text-xs">{investment.type}</Badge>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      {getStatusIcon(investment.status)}
+                      <Badge variant={
+                        investment.status === 'active' ? 'default' :
+                        investment.status === 'sold' ? 'secondary' : 'outline'
+                      }>
+                        {investment.status}
+                      </Badge>
+                      {investment.targetExitDate && isTargetApproaching(investment.targetExitDate) && (
+                        <AlertTriangle className="w-4 h-4 text-orange-500" />
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <span className="text-gray-500">Acquisition:</span>
+                      <p className="font-medium">£{(investment.acquisitionCost * investment.quantity).toLocaleString()}</p>
+                      <p className="text-gray-500">{formatDate(investment.acquisitionDate)}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Current Value:</span>
+                      <p className="font-medium">£{((investment.currentValue || 0) * investment.quantity).toLocaleString()}</p>
+                      <p className="text-gray-500">{investment.quantity} {investment.quantity === 1 ? 'item' : 'items'}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">ROI:</span>
+                      {investment.roi !== null ? (
+                        <p className={`font-medium ${investment.roi >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                          {investment.roi.toFixed(1)}%
+                        </p>
+                      ) : (
+                        <p className="text-gray-400">-</p>
+                      )}
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Target:</span>
+                      <p className="font-medium">£{(investment.targetExitPrice * investment.quantity).toLocaleString()}</p>
+                      <p className="text-gray-500">{formatDate(investment.targetExitDate)}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-end mt-3">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem>
+                          <Eye className="mr-2 h-4 w-4" />
+                          View Details
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Edit className="mr-2 h-4 w-4" />
+                          Edit Investment
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <TrendingUp className="mr-2 h-4 w-4" />
+                          Update Value
+                        </DropdownMenuItem>
+                        {investment.status === 'active' && (
+                          <DropdownMenuItem>
+                            <CheckCircle className="mr-2 h-4 w-4" />
+                            Mark as Sold
+                          </DropdownMenuItem>
+                        )}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Investments Table - Desktop View */}
+            <div className="hidden sm:block rounded-md border overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>

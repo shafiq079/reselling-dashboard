@@ -85,38 +85,38 @@ export default function Dashboard() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
               Dashboard
             </h1>
-            <p className="text-muted-foreground mt-2">
+            <p className="text-sm sm:text-base text-muted-foreground mt-1 sm:mt-2">
               Welcome back! Here's what's happening with your business today.
             </p>
           </div>
-          <div className="mt-4 sm:mt-0">
-            <Button className="button-modern bg-primary text-primary-foreground hover:bg-primary/90">
+          <div className="mt-3 sm:mt-0">
+            <Button className="button-modern bg-primary text-primary-foreground hover:bg-primary/90 w-full sm:w-auto">
               Generate Report
             </Button>
           </div>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {kpis.map((kpi, index) => (
             <Card key={index} className="card-modern">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {kpi.title}
                 </CardTitle>
-                <div className={`p-3 rounded-xl ${kpi.bgColor} shadow-sm`}>
-                  <kpi.icon className={`h-5 w-5 ${kpi.color}`} />
+                <div className={`p-2 sm:p-3 rounded-xl ${kpi.bgColor} shadow-sm`}>
+                  <kpi.icon className={`h-4 w-4 sm:h-5 sm:w-5 ${kpi.color}`} />
                 </div>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">
+                <div className="text-xl sm:text-2xl font-bold">
                   {kpi.value}
                 </div>
                 <p className="text-xs text-green-600 flex items-center mt-1">
@@ -129,13 +129,13 @@ export default function Dashboard() {
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Charts Section */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-4 sm:space-y-6">
             <Tabs defaultValue="revenue" className="space-y-4">
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="revenue">Revenue Trends</TabsTrigger>
-                <TabsTrigger value="categories">Category Performance</TabsTrigger>
+                <TabsTrigger value="revenue" className="text-xs sm:text-sm">Revenue Trends</TabsTrigger>
+                <TabsTrigger value="categories" className="text-xs sm:text-sm">Category Performance</TabsTrigger>
               </TabsList>
               
               <TabsContent value="revenue" className="space-y-4">
@@ -149,24 +149,24 @@ export default function Dashboard() {
           </div>
 
           {/* Right Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Alerts */}
             <Card className="card-modern">
               <CardHeader>
-                <CardTitle className="flex items-center">
-                  <AlertTriangle className="h-5 w-5 mr-2 text-orange-500" />
+                <CardTitle className="flex items-center text-sm sm:text-base">
+                  <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-orange-500" />
                   Alerts
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {alerts.map((alert, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-4 rounded-xl bg-muted/10 border border-border/50 hover:bg-muted/20 transition-all duration-300">
+                  <div key={index} className="flex items-start space-x-3 p-3 sm:p-4 rounded-xl bg-muted/10 border border-border/50 hover:bg-muted/20 transition-all duration-300">
                     <div className={`w-2 h-2 rounded-full mt-2 self-start ${
                       alert.type === 'error' ? 'bg-red-500' :
                       alert.type === 'warning' ? 'bg-yellow-500' : 'bg-blue-500'
                     }`} />
-                    <div className="flex-1">
-                      <p className="text-sm font-medium">{alert.message}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">{alert.message}</p>
                       <p className="text-xs text-muted-foreground mt-1">{alert.time}</p>
                     </div>
                   </div>
@@ -177,26 +177,26 @@ export default function Dashboard() {
             {/* Recent Orders */}
             <Card className="card-modern">
               <CardHeader>
-                <CardTitle>Recent Orders</CardTitle>
+                <CardTitle className="text-sm sm:text-base">Recent Orders</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {recentOrders.map((order) => (
-                  <div key={order.id} className="flex items-center justify-between p-4 rounded-xl bg-muted/10 border border-border/50 hover:bg-muted/20 transition-all duration-300">
-                    <div>
-                      <p className="text-sm font-medium">{order.id}</p>
-                      <p className="text-xs text-muted-foreground">{order.customer}</p>
+                  <div key={order.id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 rounded-xl bg-muted/10 border border-border/50 hover:bg-muted/20 transition-all duration-300 space-y-2 sm:space-y-0">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">{order.id}</p>
+                      <p className="text-xs text-muted-foreground truncate">{order.customer}</p>
                     </div>
-                    <div className="text-right">
+                    <div className="text-right sm:text-left">
                       <p className="text-sm font-medium">{order.amount}</p>
-                      <div className="flex items-center justify-end space-x-2 mt-1">
+                      <div className="flex items-center justify-start sm:justify-end space-x-2 mt-1">
                         <Badge variant={
                           order.status === 'shipped' ? 'default' :
                           order.status === 'delivered' ? 'secondary' :
                           order.status === 'processing' ? 'secondary' : 'destructive'
-                        } className="badge-modern">
+                        } className="badge-modern text-xs">
                           {order.status}
                         </Badge>
-                        <Badge variant="outline" className="badge-modern">{order.channel}</Badge>
+                        <Badge variant="outline" className="badge-modern text-xs">{order.channel}</Badge>
                       </div>
                     </div>
                   </div>

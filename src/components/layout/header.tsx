@@ -37,7 +37,7 @@ export function Header({ onMenuClick }: HeaderProps) {
   }
 
   return (
-    <header className="bg-background border-b px-4 lg:px-6 h-16 flex items-center">
+    <header className="bg-background border-b px-2 sm:px-4 lg:px-6 h-16 flex items-center">
       {/* Mobile menu button */}
       <Button
         variant="ghost"
@@ -51,7 +51,7 @@ export function Header({ onMenuClick }: HeaderProps) {
       </Button>
 
       {/* Search */}
-      <div className="flex-1 max-w-lg">
+      <div className="flex-1 max-w-xs sm:max-w-lg">
         <SearchInput
           placeholder="Search orders, products, customers..."
           onSearch={handleSearch}
@@ -59,11 +59,11 @@ export function Header({ onMenuClick }: HeaderProps) {
       </div>
 
       {/* Right side actions */}
-      <div className="flex items-center space-x-4 ml-4">
+      <div className="flex items-center space-x-2 sm:space-x-4 ml-2 sm:ml-4">
         {/* Theme Toggle */}
         <ThemeToggle />
 
-        <a href="https://shafiq-webdev.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+        <a href="https://shafiq-webdev.vercel.app/" target="_blank" rel="noopener noreferrer" className="hidden sm:block text-sm font-medium text-muted-foreground hover:text-foreground">
           shafiqwebdev
         </a>
 
@@ -82,7 +82,7 @@ export function Header({ onMenuClick }: HeaderProps) {
               )}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-80">
+          <DropdownMenuContent align="end" className="w-80 sm:w-96">
             <DropdownMenuLabel>Notifications</DropdownMenuLabel>
             <DropdownMenuSeparator />
             {notifications.length === 0 ? (

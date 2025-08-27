@@ -63,19 +63,19 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
       
       {/* Sidebar */}
       <div className={cn(
-        "fixed inset-y-0 left-0 z-40 w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 lg:w-64 lg:flex-shrink-0 lg:shadow-none lg:border-0 lg:z-auto lg:bg-transparent lg:dark:bg-transparent",
+        "fixed inset-y-0 left-0 z-40 w-64 sm:w-72 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 lg:w-64 lg:flex-shrink-0 lg:shadow-none lg:border-0 lg:z-auto lg:bg-transparent lg:dark:bg-transparent",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
+          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200 dark:border-gray-800">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
-                <Calculator className="w-6 h-6 text-white" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+                <Calculator className="w-4 h-4 sm:w-6 sm:h-6 text-white" />
               </div>
               <div>
-                <span className="text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">GENVORA</span>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Business Hub</p>
+                <span className="text-lg sm:text-xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">GENVORA</span>
+                <p className="text-xs text-gray-500 dark:text-gray-400 hidden sm:block">Business Hub</p>
               </div>
             </div>
             <Button
@@ -89,7 +89,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
+          <nav className="flex-1 px-3 sm:px-4 py-4 sm:py-6 space-y-2 overflow-y-auto">
             <div className="space-y-1">
               {navigation.map((item) => {
                 const isActive = pathname === item.href
@@ -98,13 +98,13 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      "flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 group text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-md",
+                      "flex items-center px-3 sm:px-4 py-2 sm:py-3 text-sm font-medium rounded-xl transition-all duration-300 group text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-md",
                       isActive && "bg-purple-100 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 shadow-lg border border-purple-200/50 dark:border-purple-800/50"
                     )}
                     onClick={() => onClose()}
                   >
                     <item.icon className={cn(
-                      "w-5 h-5 mr-3 transition-all duration-300",
+                      "w-4 h-4 sm:w-5 sm:h-5 mr-3 transition-all duration-300",
                       isActive 
                         ? "text-purple-600 dark:text-purple-400 scale-110" 
                         : "text-gray-500 group-hover:text-purple-600 dark:group-hover:text-purple-400"
@@ -116,7 +116,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                       {item.name}
                     </span>
                     {item.name === 'Orders' && (
-                      <Badge variant="secondary" className="ml-auto bg-purple-500 text-white border-0 shadow-sm">
+                      <Badge variant="secondary" className="ml-auto bg-purple-500 text-white border-0 shadow-sm text-xs">
                         12
                       </Badge>
                     )}
@@ -125,8 +125,8 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
               })}
             </div>
 
-            <div className="pt-6 mt-6 border-t border-gray-200 dark:border-gray-800">
-              <h3 className="px-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+            <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-gray-200 dark:border-gray-800">
+              <h3 className="px-3 sm:px-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 sm:mb-3">
                 Quick Actions
               </h3>
               <div className="space-y-1">
@@ -134,7 +134,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-md transition-all duration-300 group"
+                    className="flex items-center px-3 sm:px-4 py-2 sm:py-3 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 hover:shadow-md transition-all duration-300 group"
                     onClick={() => onClose()}
                   >
                     <item.icon className="w-4 h-4 mr-3 text-gray-500 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-all duration-300" />
@@ -146,10 +146,10 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
           </nav>
 
           {/* Footer */}
-          <div className="p-4 border-t border-gray-200 dark:border-gray-800">
+          <div className="p-3 sm:p-4 border-t border-gray-200 dark:border-gray-800">
             <div className="text-center">
               <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">© 2024 GENVORA</div>
-              <div className="text-xs text-gray-400 dark:text-gray-500">Premium Business Dashboard</div>
+              <div className="text-xs text-gray-400 dark:text-gray-500 hidden sm:block">Premium Business Dashboard</div>
             </div>
           </div>
         </div>

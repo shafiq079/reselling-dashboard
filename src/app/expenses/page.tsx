@@ -146,21 +146,21 @@ export default function ExpensesPage() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Expenses</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Expenses</h1>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1 sm:mt-2">
               Track business expenses with VAT handling and receipt management
             </p>
           </div>
-          <div className="mt-4 sm:mt-0 flex space-x-2">
-            <Button variant="outline" size="sm">
+          <div className="mt-3 sm:mt-0 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+            <Button variant="outline" size="sm" className="w-full sm:w-auto">
               <Download className="w-4 h-4 mr-2" />
               Export CSV
             </Button>
-            <Button>
+            <Button className="w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Add Expense
             </Button>
@@ -168,14 +168,14 @@ export default function ExpensesPage() {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Expenses</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">£{totalExpenses.toLocaleString()}</div>
+              <div className="text-xl sm:text-2xl font-bold">£{totalExpenses.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 All time
               </p>
@@ -188,7 +188,7 @@ export default function ExpensesPage() {
               <Percent className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-purple-600">£{totalVAT.toLocaleString()}</div>
+              <div className="text-xl sm:text-2xl font-bold text-purple-600">£{totalVAT.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 Reclaimable
               </p>
@@ -201,7 +201,7 @@ export default function ExpensesPage() {
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">£{thisMonthExpenses.toLocaleString()}</div>
+              <div className="text-xl sm:text-2xl font-bold">£{thisMonthExpenses.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 Current month
               </p>
@@ -214,7 +214,7 @@ export default function ExpensesPage() {
               <Clock className="h-4 w-4 text-orange-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-orange-600">£{pendingExpenses.toLocaleString()}</div>
+              <div className="text-xl sm:text-2xl font-bold text-orange-600">£{pendingExpenses.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 Awaiting approval
               </p>
@@ -229,7 +229,7 @@ export default function ExpensesPage() {
             <CardDescription>Track and manage business expenses with VAT calculations</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
@@ -265,8 +265,101 @@ export default function ExpensesPage() {
               </Select>
             </div>
 
-            {/* Expenses Table */}
-            <div className="rounded-md border">
+            {/* Expenses Table - Mobile Card View */}
+            <div className="block sm:hidden space-y-3">
+              {filteredExpenses.map((expense) => (
+                <Card key={expense.id} className="p-4">
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium text-sm truncate">{expense.description}</h3>
+                      <p className="text-xs text-gray-500">{expense.id}</p>
+                      <div className="flex items-center text-xs text-gray-500 mt-1">
+                        <Calendar className="w-3 h-3 mr-1" />
+                        {formatDate(expense.date)}
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      {getStatusIcon(expense.status)}
+                      <Badge variant={
+                        expense.status === 'paid' ? 'default' :
+                        expense.status === 'approved' ? 'secondary' : 'outline'
+                      }>
+                        {expense.status}
+                      </Badge>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <span className="text-gray-500">Category:</span>
+                      <p><Badge variant="outline" className="text-xs">{expense.category}</Badge></p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Net Amount:</span>
+                      <p className="font-medium">£{expense.amount.toFixed(2)}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">VAT:</span>
+                      <p className="font-medium">£{expense.vatAmount.toFixed(2)}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Total:</span>
+                      <p className="font-medium">£{expense.totalAmount.toFixed(2)}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-between items-center mt-3">
+                    <div>
+                      {expense.receiptUrl ? (
+                        <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                          <FileText className="h-3 w-3" />
+                        </Button>
+                      ) : (
+                        <span className="text-gray-400 text-xs">No receipt</span>
+                      )}
+                    </div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem>
+                          <Eye className="mr-2 h-4 w-4" />
+                          View Details
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Edit className="mr-2 h-4 w-4" />
+                          Edit Expense
+                        </DropdownMenuItem>
+                        {expense.receiptUrl && (
+                          <DropdownMenuItem>
+                            <FileText className="mr-2 h-4 w-4" />
+                            View Receipt
+                          </DropdownMenuItem>
+                        )}
+                        {expense.status === 'pending' && (
+                          <DropdownMenuItem>
+                            <CheckCircle className="mr-2 h-4 w-4" />
+                            Approve
+                          </DropdownMenuItem>
+                        )}
+                        {expense.status === 'approved' && (
+                          <DropdownMenuItem>
+                            <CheckCircle className="mr-2 h-4 w-4" />
+                            Mark as Paid
+                          </DropdownMenuItem>
+                        )}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Expenses Table - Desktop View */}
+            <div className="hidden sm:block rounded-md border overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>

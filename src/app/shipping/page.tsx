@@ -170,21 +170,21 @@ export default function ShippingPage() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Shipping & Operations</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Shipping & Operations</h1>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1 sm:mt-2">
               Manage shipping workflows, print labels, and track deliveries
             </p>
           </div>
-          <div className="mt-4 sm:mt-0 flex space-x-2">
-            <Button variant="outline" size="sm">
+          <div className="mt-3 sm:mt-0 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+            <Button variant="outline" size="sm" className="w-full sm:w-auto">
               <Download className="w-4 h-4 mr-2" />
               Export Manifest
             </Button>
-            <Button>
+            <Button className="w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Create Shipment
             </Button>
@@ -192,7 +192,7 @@ export default function ShippingPage() {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Shipments</CardTitle>

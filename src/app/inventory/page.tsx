@@ -129,25 +129,25 @@ export default function InventoryPage() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Inventory</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Inventory</h1>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1 sm:mt-2">
               Manage your product inventory and stock levels
             </p>
           </div>
-          <div className="mt-4 sm:mt-0 flex space-x-2">
-            <Button variant="outline" size="sm">
+          <div className="mt-3 sm:mt-0 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+            <Button variant="outline" size="sm" className="w-full sm:w-auto">
               <Upload className="w-4 h-4 mr-2" />
               Import CSV
             </Button>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" className="w-full sm:w-auto">
               <Download className="w-4 h-4 mr-2" />
               Export CSV
             </Button>
-            <Button>
+            <Button className="w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Add Product
             </Button>
@@ -155,14 +155,14 @@ export default function InventoryPage() {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Products</CardTitle>
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{products.length}</div>
+              <div className="text-xl sm:text-2xl font-bold">{products.length}</div>
               <p className="text-xs text-muted-foreground">
                 {products.filter(p => p.listingStatus === 'active').length} active
               </p>
@@ -175,7 +175,7 @@ export default function InventoryPage() {
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">£{totalValue.toLocaleString()}</div>
+              <div className="text-xl sm:text-2xl font-bold">£{totalValue.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 Cost: £{totalCost.toLocaleString()}
               </p>
@@ -188,7 +188,7 @@ export default function InventoryPage() {
               <AlertTriangle className="h-4 w-4 text-orange-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-orange-600">{lowStockItems}</div>
+              <div className="text-xl sm:text-2xl font-bold text-orange-600">{lowStockItems}</div>
               <p className="text-xs text-muted-foreground">
                 Need reordering
               </p>
@@ -201,7 +201,7 @@ export default function InventoryPage() {
               <CheckCircle className="h-4 w-4 text-green-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-xl sm:text-2xl font-bold text-green-600">
                 {products.filter(p => p.quantity > 0).length}
               </div>
               <p className="text-xs text-muted-foreground">
@@ -218,7 +218,7 @@ export default function InventoryPage() {
             <CardDescription>View and manage your inventory items</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
@@ -254,8 +254,82 @@ export default function InventoryPage() {
               </Select>
             </div>
 
-            {/* Products Table */}
-            <div className="rounded-md border">
+            {/* Products Table - Mobile Card View */}
+            <div className="block sm:hidden space-y-3">
+              {filteredProducts.map((product) => (
+                <Card key={product.id} className="p-4">
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium text-sm truncate">{product.name}</h3>
+                      <p className="text-xs text-gray-500">{product.brand}</p>
+                      <p className="text-xs font-mono text-gray-400 mt-1">{product.sku}</p>
+                    </div>
+                    <Badge variant={product.listingStatus === 'active' ? 'default' : 'secondary'}>
+                      {product.listingStatus}
+                    </Badge>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <span className="text-gray-500">Stock:</span>
+                      <div className="flex items-center space-x-1">
+                        <span className={product.quantity <= product.reorderPoint ? 'text-orange-600 font-medium' : ''}>
+                          {product.quantity}
+                        </span>
+                        {product.quantity <= product.reorderPoint && (
+                          <Badge variant="destructive" className="text-xs px-1 py-0">
+                            Low
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Location:</span>
+                      <p className="font-mono">{product.binLocation}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Cost:</span>
+                      <p>£{product.cost.toFixed(2)}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Value:</span>
+                      <p>£{product.marketValue.toFixed(2)}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-end mt-3">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem>
+                          <Eye className="mr-2 h-4 w-4" />
+                          View Details
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Edit className="mr-2 h-4 w-4" />
+                          Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Package className="mr-2 h-4 w-4" />
+                          Adjust Stock
+                        </DropdownMenuItem>
+                        <DropdownMenuItem className="text-red-600">
+                          <Trash2 className="mr-2 h-4 w-4" />
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Products Table - Desktop View */}
+            <div className="hidden sm:block rounded-md border overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>

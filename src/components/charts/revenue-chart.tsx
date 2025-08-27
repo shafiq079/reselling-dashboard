@@ -90,22 +90,27 @@ export function RevenueChart() {
       </CardHeader>
       <CardContent>
         {loading ? (
-          <div className="h-64 flex items-center justify-center">
+          <div className="h-48 sm:h-64 flex items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         ) : (
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+          <ResponsiveContainer width="100%" height={250}>
+            <LineChart data={data} margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" className="stroke-border/50" />
               <XAxis 
                 dataKey="date" 
                 className="text-xs"
-                tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
+                interval={0}
+                angle={-45}
+                textAnchor="end"
+                height={60}
               />
               <YAxis 
                 className="text-xs"
-                tick={{ fill: 'hsl(var(--muted-foreground))' }}
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 10 }}
                 tickFormatter={formatCurrency}
+                width={60}
               />
               <Tooltip 
                 formatter={(value: number, name: string) => [
@@ -116,17 +121,22 @@ export function RevenueChart() {
                 contentStyle={{
                   backgroundColor: 'hsl(var(--card))',
                   border: '1px solid hsl(var(--border))',
-                  borderRadius: '8px'
+                  borderRadius: '8px',
+                  fontSize: '12px'
                 }}
               />
-              <Legend />
+              <Legend 
+                wrapperStyle={{ fontSize: '12px' }}
+                iconType="circle"
+                iconSize={8}
+              />
               <Line 
                 type="monotone" 
                 dataKey="revenue" 
                 stroke="hsl(var(--primary))" 
                 strokeWidth={2}
-                dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 4 }}
-                activeDot={{ r: 6 }}
+                dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2, r: 3 }}
+                activeDot={{ r: 5 }}
                 name="Revenue"
               />
               <Line 
@@ -134,8 +144,8 @@ export function RevenueChart() {
                 dataKey="profit" 
                 stroke="#10b981" 
                 strokeWidth={2}
-                dot={{ fill: '#10b981', strokeWidth: 2, r: 4 }}
-                activeDot={{ r: 6 }}
+                dot={{ fill: '#10b981', strokeWidth: 2, r: 3 }}
+                activeDot={{ r: 5 }}
                 name="Profit"
               />
             </LineChart>

@@ -179,21 +179,21 @@ export default function OrdersPage() {
 
   return (
     <MainLayout>
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Orders</h1>
-            <p className="text-gray-600 dark:text-gray-400 mt-2">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Orders</h1>
+            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mt-1 sm:mt-2">
               Manage orders from all your sales channels
             </p>
           </div>
-          <div className="mt-4 sm:mt-0 flex space-x-2">
-            <Button variant="outline" size="sm">
+          <div className="mt-3 sm:mt-0 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+            <Button variant="outline" size="sm" className="w-full sm:w-auto">
               <Download className="w-4 h-4 mr-2" />
               Export CSV
             </Button>
-            <Button>
+            <Button className="w-full sm:w-auto">
               <Plus className="w-4 h-4 mr-2" />
               Manual Order
             </Button>
@@ -201,14 +201,14 @@ export default function OrdersPage() {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">£{totalRevenue.toLocaleString()}</div>
+              <div className="text-xl sm:text-2xl font-bold">£{totalRevenue.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 Across all channels
               </p>
@@ -221,7 +221,7 @@ export default function OrdersPage() {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-600">£{totalProfit.toLocaleString()}</div>
+              <div className="text-xl sm:text-2xl font-bold text-green-600">£{totalProfit.toLocaleString()}</div>
               <p className="text-xs text-muted-foreground">
                 After fees & shipping
               </p>
@@ -234,7 +234,7 @@ export default function OrdersPage() {
               <Clock className="h-4 w-4 text-orange-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-orange-600">{pendingOrders}</div>
+              <div className="text-xl sm:text-2xl font-bold text-orange-600">{pendingOrders}</div>
               <p className="text-xs text-muted-foreground">
                 Need attention
               </p>
@@ -247,7 +247,7 @@ export default function OrdersPage() {
               <Truck className="h-4 w-4 text-blue-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-blue-600">{shippedOrders}</div>
+              <div className="text-xl sm:text-2xl font-bold text-blue-600">{shippedOrders}</div>
               <p className="text-xs text-muted-foreground">
                 Ready for dispatch
               </p>
@@ -262,7 +262,7 @@ export default function OrdersPage() {
             <CardDescription>View and manage orders from all channels</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
               <div className="relative flex-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <Input
@@ -298,8 +298,99 @@ export default function OrdersPage() {
               </Select>
             </div>
 
-            {/* Orders Table */}
-            <div className="rounded-md border">
+            {/* Orders Table - Mobile Card View */}
+            <div className="block sm:hidden space-y-3">
+              {filteredOrders.map((order) => (
+                <Card key={order.id} className="p-4">
+                  <div className="flex justify-between items-start mb-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium text-sm">{order.id}</h3>
+                      <p className="text-xs text-gray-500">{order.channelOrderId}</p>
+                      <p className="text-xs text-gray-500 mt-1 truncate">{order.customerName}</p>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      {getStatusIcon(order.status)}
+                      <Badge variant={
+                        order.status === 'delivered' ? 'default' :
+                        order.status === 'shipped' ? 'secondary' :
+                        order.status === 'processing' ? 'secondary' :
+                        order.status === 'pending' ? 'outline' : 'destructive'
+                      }>
+                        {order.status}
+                      </Badge>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <span className="text-gray-500">Channel:</span>
+                      <div className="flex items-center space-x-1">
+                        <span>{getChannelIcon(order.channel)}</span>
+                        <Badge variant="outline" className="text-xs">{order.channel}</Badge>
+                      </div>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Total:</span>
+                      <p className="font-medium">£{order.total.toFixed(2)}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Profit:</span>
+                      <p className="font-medium text-green-600">£{order.netProfit.toFixed(2)}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Tracking:</span>
+                      {order.trackingNumber ? (
+                        <div className="flex items-center space-x-1">
+                          <span className="font-mono text-xs truncate">{order.trackingNumber}</span>
+                          <ExternalLink className="w-3 h-3 text-blue-500 flex-shrink-0" />
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">-</span>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-end mt-3">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem>
+                          <Eye className="mr-2 h-4 w-4" />
+                          View Details
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <Edit className="mr-2 h-4 w-4" />
+                          Edit Order
+                        </DropdownMenuItem>
+                        {order.status === 'pending' && (
+                          <DropdownMenuItem>
+                            <Package className="mr-2 h-4 w-4" />
+                            Process Order
+                          </DropdownMenuItem>
+                        )}
+                        {order.status === 'processing' && (
+                          <DropdownMenuItem>
+                            <Truck className="mr-2 h-4 w-4" />
+                            Ship Order
+                          </DropdownMenuItem>
+                        )}
+                        <DropdownMenuItem>
+                          <ShoppingCart className="mr-2 h-4 w-4" />
+                          View on {order.channel}
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </Card>
+              ))}
+            </div>
+
+            {/* Orders Table - Desktop View */}
+            <div className="hidden sm:block rounded-md border overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>

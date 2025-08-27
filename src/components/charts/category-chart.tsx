@@ -105,12 +105,12 @@ export function CategoryChart() {
       </CardHeader>
       <CardContent>
         {loading ? (
-          <div className="h-64 flex items-center justify-center">
+          <div className="h-48 sm:h-64 flex items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
         ) : (
           <div className="space-y-4">
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={200}>
               <PieChart>
                 <Pie
                   data={data}
@@ -118,7 +118,8 @@ export function CategoryChart() {
                   cy="50%"
                   labelLine={false}
                   label={renderCustomizedLabel}
-                  outerRadius={80}
+                  outerRadius={60}
+                  innerRadius={30}
                   fill="#8884d8"
                   dataKey="value"
                 >
@@ -132,23 +133,28 @@ export function CategoryChart() {
                   contentStyle={{
                     backgroundColor: 'hsl(var(--card))',
                     border: '1px solid hsl(var(--border))',
-                    borderRadius: '8px'
+                    borderRadius: '8px',
+                    fontSize: '12px'
                   }}
                 />
-                <Legend />
+                <Legend 
+                  wrapperStyle={{ fontSize: '12px' }}
+                  iconType="circle"
+                  iconSize={8}
+                />
               </PieChart>
             </ResponsiveContainer>
             
             {/* Category List */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 mt-4">
               {data.map((category, index) => (
-                <div key={index} className="flex items-center space-x-2 p-3 rounded-lg bg-muted/20 border border-border/50">
+                <div key={index} className="flex items-center space-x-2 p-2 sm:p-3 rounded-lg bg-muted/20 border border-border/50">
                   <div 
-                    className="w-4 h-4 rounded-sm" 
+                    className="w-3 h-3 sm:w-4 sm:h-4 rounded-sm" 
                     style={{ backgroundColor: category.color }}
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">{category.name}</p>
+                    <p className="text-xs sm:text-sm font-medium truncate">{category.name}</p>
                     <p className="text-xs text-muted-foreground font-semibold">
                       {formatCurrency(category.value)}
                     </p>
