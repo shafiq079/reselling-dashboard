@@ -63,6 +63,10 @@ export function Header({ onMenuClick }: HeaderProps) {
         {/* Theme Toggle */}
         <ThemeToggle />
 
+        <a href="https://shafiq-webdev.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+          shafiqwebdev
+        </a>
+
         {/* Notifications */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
